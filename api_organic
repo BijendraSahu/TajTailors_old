@@ -1,0 +1,74 @@
+/***********Bijendra Sahu***************/
+
+
+
+
+/******Local******/
+/////////*Item/Category*///////////////
+Get Category
+http://localhost:8000/getCategory
+
+Item by item_id:
+http://localhost:8000/getItem_bycid?category_id=1&currentpage=1
+
+Item by item_id:
+http://localhost:8000/getItem?item_id=1
+/////////*Item/Category*///////////////
+
+
+/////////*Login/Reg/Profile*///////////////
+Login:
+http://localhost:8000/getlogin?mobile_email=9876543210&password=123
+
+Registration(Post Method Only use http://localhost:8000/getregister)
+http://localhost:8000/getregister?ref_code=rf1234&name=abc&email=bijendra2@gmail.com&mobile=9876543210&password=123
+
+Profile Update(Post Method Only use http://localhost:8000/edit_profile)
+http://localhost:8000/edit_profile?user_id=16&name=abc&email=a@gmail.com&mobile=9876543210&profile_img
+
+http://18.188.188.62/OrganicDolchi/change_password?user_id=16&password=abc
+/////////*Login/Reg///////////////
+
+
+/////////*Order///////////////
+Confirm Checkout(Post Method Only use http://18.188.188.62/OrganicDolchi/confirm_checkout)
+http://18.188.188.62/OrganicDolchi/confirm_checkout?user_id=16&address_id=1&cart=cart_item_json_array&total=400
+
+Get OrderList By UserId
+http://18.188.188.62/OrganicDolchi/getOrders?user_id=16
+
+Get CheckPromo
+http://18.188.188.62/OrganicDolchi/check_promo?promo_code=pre100
+/////////*Order///////////////
+
+
+
+/////////*Address///////////////
+Address Insert(Post Method Only use http://localhost:8000/insert_user_address)
+http://localhost:8000/insert_user_address?user_id=16&name=abc&email=a@gmail.com&mobile=9876543210&address=garha&address2=garhajbp&pincode=482003&city_id=99&state_id=88
+
+Address Update(Post Method Only use http://localhost:8000/update_user_address)
+http://localhost:8000/update_user_address?address_id=1&name=abc&email=a@gmail.com&mobile=9876543210&address=garha&address2=garhajbp&pincode=482003&city_id=99&state_id=88
+
+Get User address by address id
+http://localhost:8000/getaddressbyid?address_id=1
+
+Get User address
+http://localhost:8000/getaddress?user_id=16
+/////////*Address///////////////
+
+//delivery Charges
+http://18.188.188.62/OrganicDolchi/delivery_charge?total=400&pin=482003
+
+
+/////////*Review///////////////
+Get User Review by itemid
+http://localhost:8000/getreview?item_id=1
+
+Review Insert(Post Method Only use http://localhost:8000/insert_review)
+http://localhost:8000/insert_review?item_master_id=1&name=abc&email=a@gmail.com&mobile=9876543210&address=garha&address2=garhajbp&pincode=482003&city_id=99&state_id=88
+/////////*Review///////////////
+
+
+/******Local******/
+/***********Bijendra Sahu***************/
