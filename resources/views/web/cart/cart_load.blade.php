@@ -32,13 +32,14 @@
                     <tr>
                         <td class="text-left"><a class="cart_product_name"
                                                  title="{{$row->name}}"
-                                                 href="#">{{ str_limit($row->name, 12) }}</a></td>
-                        <td class="text-center"> x{{$row->qty}}</td>
+                                                 href="#">{{ str_limit($row->name, 18) }}</a></td>
+                        <td class="text-center"><span
+                                    class="badge">{{($row->options->has('size') ? $row->options->size : '')}}</span>
+                            x{{$row->qty}}</td>
                         <td class="text-center"><i class="fa fa-inr"></i>{{$row->price}}</td>
                         <td class="text-right">
-                            <a onclick="remove_item('{{$row->rowId}}')" class="mdi mdi-close cart-delete"
-                               data-toggle="tooltip"
-                               title="Remove"></a>
+                            <a onclick="remove_item('{{$row->rowId}}')" class="mdi mdi-close-circle cart-delete"
+                               data-toggle="tooltip" title="Remove"></a>
                         </td>
                     </tr>
                     <?php $total += $row->price * $row->qty;
@@ -57,7 +58,10 @@
         </a>
     </div>
 </div>
-<script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     function remove_item(cart_item_id) {
         $.ajax({
             type: 'get',

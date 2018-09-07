@@ -56,7 +56,7 @@
 
 @include('web.layouts.footer')
 
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         cartload();
     });
@@ -85,7 +85,7 @@
     </script>
 @endif
 @if($errors->any())
-    <script>
+    <script type="text/javascript">
         if ('{{$errors->first()}}' == 'Please login first') {
             ShowLoginSignup('signin');
         } else {

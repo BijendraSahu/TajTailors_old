@@ -1,6 +1,6 @@
 @extends('web.layouts.e_master')
 
-@section('title', 'Organic Food : My Cart')
+@section('title', 'Taj Tailors : My Cart')
 
 @section('head')
 
@@ -28,7 +28,7 @@
                                     <i class="mdi mdi-currency-inr"></i>{{number_format($total,2)}}
                                 </div>
                             </div>
-                            <?php $delivery_charge = DB::select("SELECT delivery_charge FROM delivery_charges where amount>=$total and is_active= '1' ORDER BY id DESC LIMIT 1"); ?>
+                            @php $delivery_charge = DB::select("SELECT delivery_charge FROM delivery_charges where amount>=$total and is_active= '1' ORDER BY id DESC LIMIT 1"); @endphp
                             <div class="option_availability">
                                 <div class="option_txt">Delivery Charges</div>
                                 <div class="product_right_txt">
@@ -61,48 +61,44 @@
                         <span class="filter_head_txt slider_headtxt">My Cart ({{$itemcount}})</span>
                     </div>
                     <div class="order_list_container">
-                        <?php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; ?>
+                        @php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; @endphp
                         @if(count(\Gloudemans\Shoppingcart\Facades\Cart::content())>0)
                             @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
                                 <div class="order_row border-none">
                                     <div class="order_details_box">
-                                        <div class="col-md-8 col-sm-12">
+                                        <div class="col-sm-8">
                                             <div class="productdetails_order_row">
                                                 <div class="order_product_imgbox">
-                                                    <?php $item_images = \App\ItemImages::where(['item_master_id' => $row->id])->first(); ?>
-                                                    @if(isset($item_images))
-                                                        <img src="{{url('p_img').'/'.$row->id.'/'.$item_images->image}}"
+                                                    @php $item_image = \App\ItemImages::where(['item_master_id' => $row->id])->first();
+                                                    $item = \App\ItemMaster::find($row->id);
+                                                    @endphp
+                                                    @if(isset($item_image))
+                                                        <img src="{{url('p_img').'/'.$row->id.'/'.$item_image->image}}"
                                                              alt="{{$row->name}}">
                                                     @else
-                                                        <img src="images/product_09.jpg" alt="Organic product">
+                                                        <img src="{{url('images/default.png')}}" alt="Organic product">
                                                     @endif
 
                                                 </div>
                                                 <div class="product_name">
-                                                    {{$row->name}}
+                                                    {{$item->name}}
                                                 </div>
                                                 <div class="option_availability">
-                                                    <div class="option_txt">Product Type</div>
+                                                    <div class="option_txt">Quantity :</div>
                                                     <div class="product_right_txt">
-                                                        Whole Grains
+                                                        {{$row->qty}}
                                                     </div>
                                                 </div>
-                                                <div class="option_availability">
-                                                    <div class="option_txt">Container Type</div>
-                                                    <div class="product_right_txt">
-                                                        Bottle
-                                                    </div>
-                                                </div>
-                                                <div class="option_availability">
-                                                    <div class="option_txt">Sales Package</div>
-                                                    <div class="product_right_txt">
-                                                        Oil Bottle (60 ml)
+                                                <div class="desc_cart">
+                                                    <div class="des_txt">Specifications :</div>
+                                                    <div class="des_details">
+                                                        {!! $item->specifcation!!}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <div class="track_del_address">Free delivery by 15-May-2018</div>
+                                        <div class="col-sm-4">
+                                            {{--<div class="track_del_address">Free delivery by 15-May-2018</div>--}}
                                             <div class="order_amt"><i
                                                         class="mdi mdi-currency-inr"></i> {{number_format($row->price,2)}}
                                             </div>
@@ -115,13 +111,19 @@
                                                         <span class="qty_txt">Qty</span>
                                                         <input type="number" name="qty"
                                                                class="form-control text-center qty_edittxt"
-                                                               min="1"
-                                                               max="10" id="crtupdate" value="{{$row->qty}}">
+                                                               min="1" max="10" id="crtupdate" value="{{$row->qty}}">
+
                                                     </div>
                                                     <a href="{{url('cart_delete').'/'.$row->rowId}}"
                                                        class="spinner_addcardbtn btn-danger" id="{{$row->id}}"><span
                                                                 class="mdi mdi-close close_btn"></span> <span
                                                                 class="button-group_text">Remove</span></a>
+                                                </div>
+                                                <div class="update_qty_box">
+                                                    <button type="submit"
+                                                            class="btn btn-primary btn-sm">
+                                                        <i class="mdi mdi-refresh basic_icon_margin"></i> Update Qty
+                                                    </button>
                                                 </div>
                                             </form>
                                         </div>
@@ -139,12 +141,4 @@
             </div>
         </div>
     </section>
-    <script>
-        $('#crtupdate').click(function () {
-            form = $('#cartupdate');
-//                                form.attr('action', form.attr('action') + '.xls').trigger('submit');
-//                                form.attr('action', action);
-            form.submit();
-        });
-    </script>
 @stop

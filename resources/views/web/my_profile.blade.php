@@ -1,95 +1,15 @@
 @extends('web.layouts.e_master')
 
-@section('title', 'Organic Food : My Profile')
+@section('title', 'Taj Tailors : My Profile')
 
 @section('head')
     <style type="text/css">
-        .profile_block {
-            width: 100%;
-            background-color: #f7f7f7;
-            border: 1px solid #ececec;
-            position: relative;
-            padding: 20px;
-        }
 
-        .profile-picture {
-            width: 120px;
-            height: 120px;
-            overflow: hidden;
-            margin: 10px auto;
-            position: relative;
-            border: 5px solid #fff;
-            box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.19), 0 2px 5px rgba(0, 0, 0, 0.23);
-            background-color: #ffffff;
-            border-radius: 50%;
-        }
-
-        .profile-picture img {
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .profile-upload {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            margin-right: 10px;
-            margin-top: 10px;
-            padding: 0px 5px;
-        }
-
-        .profile-upload-pic {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            opacity: 0;
-            z-index: 3;
-            cursor: pointer;
-        }
-
-        .mute_caption {
-            margin-top: 15px;
-            width: 100%;
-            display: inline-block;
-        }
-
-        .my_profile_picshow {
-            position: relative;
-            width: 100%;
-            display: inline-block;
-            padding: 15px 0px;
-            padding-left: 70px;
-        }
-
-        .my_profile_picshow img {
-            position: absolute;
-            left: 0px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            top: 0px;
-        }
-
-        .my_profile_name {
-            display: inline-block;
-            width: 100%;
-            font-weight: bold;
-            font-size: 16px;
-            color: #86bc43;
-        }
-
-        .errorClass {
-            border: 1px solid red !important;
-        }
     </style>
 @stop
 @section('content')
     <section class="product_section">
-        <div class="container">
+        <div class="container res_pad0" id="profile_section">
             <div class="col-sm-12 col-md-3">
                 <div class="order_listbox">
                     <div class="carousal_head">
@@ -97,11 +17,11 @@
                     </div>
                     <div class="order_list_container">
                         <div class="my_profile_picshow">
-                            @if(isset($user->profile_img))
+                            @if($user->profile_img != 'images/Male_default.png')
                                 <img src="{{url('u_img').'/'.$user->id.'/'.$user->profile_img}}" id="_UserProfile"
                                      alt="UserProfile">
                             @else
-                                <img src="{{url('images/Male_default.png')}}" id="" alt="UserProfile">
+                                <img src="{{url('images/Male_default.png')}}" id="_UserProfile" alt="UserProfile">
                             @endif
                             <div class="my_profile_name">{{$user->name}}</div>
                         </div>
@@ -112,12 +32,13 @@
                                 Edit Profile
                             </a>
                         </div>
-                        <div class="menu_popup_settingrow">
-                            <a class="menu_setting_row" onclick="ShowAddress();">
-                                <i class="mdi mdi-map-marker"></i>
-                                Manage Address
-                            </a>
-                        </div>
+                        {{--  <div class="menu_popup_settingrow">
+                              <a class="menu_setting_row" onclick="ShowAddress();">
+                                  <i class="mdi mdi-map-marker"></i>
+                                  Manage Address
+                              </a>
+                          </div>--}}
+
                         <div class="menu_popup_settingrow">
                             <a href="{{url('order_list')}}" class="menu_setting_row">
                                 <i class="mdi mdi-format-list-checks"></i>
@@ -156,16 +77,17 @@
                         <div class="order_list_container">
                             <div class="order_row border-none">
 
-                                <form enctype="multipart/form-data" id="userpostForm">
+                                <form enctype="multipart/form-data" id="userpostForm"
+                                      action="{{url('profile_update')}}" method="post">
                                     <div class="order_details_box">
                                         <div class="col-md-5 col-sm-12">
                                             <div class="profile_block text-center">
                                                 <div class="profile-picture">
-                                                    @if(isset($user->profile_img))
+                                                    @if($user->profile_img != 'images/Male_default.png')
                                                         <img src="{{url('u_img').'/'.$user->id.'/'.$user->profile_img}}"
                                                              id="_UserProfile" alt="UserProfile">
                                                     @else
-                                                        <img src="{{url('images/Male_default.png')}}" id=""
+                                                        <img src="{{url('images/Male_default.png')}}" id="_UserProfile"
                                                              alt="UserProfile"/>
                                                     @endif
 
@@ -176,12 +98,18 @@
                                                            class="profile-upload-pic"
                                                            onchange="ChangeSetImage(this, _UserProfile);">
                                                 </div>
-                                                <div class="btn btn-default btn-sm profile-upload"
-                                                     onclick="RemoveProfileImage(_UserProfile, profile_file);">
-                                                    <span class="mdi mdi-close mdi-24px"></span>
-                                                </div>
+                                                {{--<div class="btn btn-default btn-sm profile-upload"--}}
+                                                {{--onclick="RemoveProfileImage(_UserProfile, profile_file);">--}}
+                                                {{--<span class="mdi mdi-close mdi-24px"></span>--}}
+                                                {{--</div>--}}
+                                                @if($user->profile_img != 'images/Male_default.png')
+                                                    <div class="btn btn-default btn-sm profile-upload">
+                                                        <span class="mdi mdi-close mdi-24px"
+                                                              onclick="removeProfile(_UserProfile,profile_file)"></span>
+                                                    </div>
+                                                @endif
                                                 <small class="text-muted mute_caption">
-                                                    Accepted formats are .jpg, .gif &amp; .png. Size &lt; 1MB.
+                                                    Accepted formats are .jpg, .gif &amp; .png. Size &lt; 2MB.
                                                 </small>
                                             </div>
                                         </div>
@@ -194,12 +122,12 @@
                                             <div class="deli_row">
                                                 <input type="text" name="email" value="{{$user->email}}" id="e_id"
                                                        placeholder="Email Id"
-                                                       class="form-control"/>
+                                                       class="form-control" onkeypress="return false;"/>
                                             </div>
                                             <div class="deli_row">
                                                 <input type="text" name="contact" value="{{$user->contact}}" id="p_id"
                                                        placeholder="Phone No."
-                                                       class="form-control"/>
+                                                       class="form-control" onkeypress="return false;"/>
                                             </div>
                                             <div class="deli_row">
                                                 <button type="submit" class="btn btn-success confirm_order_btn"><i
@@ -219,16 +147,15 @@
                             <span class="filter_head_txt slider_headtxt">Delivery Address Details</span>
                         </div>
                         <form enctype="multipart/form-data" id="userAddress">
-                            <div class="order_list_container">
+                            <div class="order_list_container  margin_top15">
                                 <div class="deli_row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 radio_row">
                                         <div class="radio">
                                             <input id="add_1" value="male" class="gender" name="address_radio"
                                                    type="radio"
                                                    checked="" onchange="AddressOption('new');">
                                             <label for="add_1" class="radio-label">New</label>
                                         </div>
-
                                         <div class="radio">
                                             <input id="add_2" onchange="AddressOption('existing');" value="female"
                                                    class="gender" name="address_radio" type="radio">
@@ -291,6 +218,43 @@
         <p id="err1"></p>
     </section>
     <script>
+
+        function removeProfile(changepicid, file_id) {
+            swal({
+                title: "Confirmation",
+                text: "Are you sure you want to remove profile pic?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((okk) => {
+                if (okk) {
+                    $.ajax({
+                        type: "get",
+                        contentType: "application/json; charset=utf-8",
+                        url: "{{ url('removeProfile') }}",
+                        success: function (data) {
+                            if (jQuery.parseJSON(data).response == 'No record found') {
+                                swal("Something went wrong", jQuery.parseJSON(data).response, "info");
+                            } else {
+                                $(changepicid).attr('src', 'images/Male_default.png');
+                                $(file_id).val('');
+                                swal("Success!", jQuery.parseJSON(data).response, "success");
+//                                setTimeout(function () {
+//                                    $("#profile_section").load(location.href + " #profile_section");
+//                                }, 1500);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert(error);
+                            swal("Server Issue", "Something went wrong", "info");
+
+                        }
+                    });
+                }
+
+            });
+        }
+
         function getuseraddress() {
             var address_id = $('#existaddress :selected').val();
             if (address_id > 0) {
@@ -359,6 +323,7 @@
                             }
                         },
                         success: function (data) {
+                            console.log(data);
                             if (data == 'success') {
                                 ShowSuccessPopupMsg('Address has been updated...');
                                 $('#userAddress').css("opacity", "");
@@ -382,56 +347,57 @@
             });
 
 
-            $("#userpostForm").on('submit', function (e) {
-                e.preventDefault();
-                var username = $('#username').val();
-                var email = $('#e_id').val();
-                var contact = $('#p_id').val();
-                var result = true;
-                if (!Boolean(Requiredtxt("#username")) || !Boolean(Requiredtxt("#e_id")) || !Boolean(Requiredtxt("#p_id"))) {
-                    result = false;
-                }
-                if (!result) {
-                    return false;
-                } else {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ url('profile_update') }}",
-                        data: new FormData(this),
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        beforeSend: function () {
-                            if (confirm("Are you sure?")) {
-                                $('#userpostForm').css("opacity", ".5");
-                            } else {
-                                // stop the ajax call
-                                return false;
-                            }
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            if (data == 'success') {
-                                ShowSuccessPopupMsg('Profile has been updated...');
-                                $('#userpostForm').css("opacity", "");
-                                setTimeout(function () {
-                                    window.location.href = "{{url('my_profile')}}";
-                                }, 2000);
-                            } else {
-                                $('#userpostForm').css("opacity", "");
-                                ShowErrorPopupMsg(data);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            ShowErrorPopupMsg('Error in uploading...');
-                            $('#userpostForm').css("opacity", "");
-                            // $('#err1').html(xhr.responseText);
-                            // ShowErrorPopupMsg(xhr.message);
-                        }
-                    });
-                }
-//                }
-            });
+            {{--$("#userpostForm").on('submit', function (e) {--}}
+            {{--debugger;--}}
+            {{--e.preventDefault();--}}
+            {{--var username = $('#username').val();--}}
+            {{--var email = $('#e_id').val();--}}
+            {{--var contact = $('#p_id').val();--}}
+            {{--var result = true;--}}
+            {{--if (!Boolean(Requiredtxt("#username")) || !Boolean(Requiredtxt("#e_id")) || !Boolean(Requiredtxt("#p_id"))) {--}}
+            {{--result = false;--}}
+            {{--}--}}
+            {{--if (!result) {--}}
+            {{--return false;--}}
+            {{--} else {--}}
+            {{--$.ajax({--}}
+            {{--type: 'POST',--}}
+            {{--url: "{{ url('profile_update') }}",--}}
+            {{--data: new FormData(this),--}}
+            {{--contentType: false,--}}
+            {{--cache: false,--}}
+            {{--processData: false,--}}
+            {{--beforeSend: function () {--}}
+            {{--if (confirm("Are you sure?")) {--}}
+            {{--$('#userpostForm').css("opacity", ".5");--}}
+            {{--} else {--}}
+            {{--// stop the ajax call--}}
+            {{--return false;--}}
+            {{--}--}}
+            {{--},--}}
+            {{--success: function (data) {--}}
+            {{--console.log(data);--}}
+            {{--if (data == 'success') {--}}
+            {{--ShowSuccessPopupMsg('Profile has been updated...');--}}
+            {{--$('#userpostForm').css("opacity", "");--}}
+            {{--setTimeout(function () {--}}
+            {{--window.location.href = "{{url('my_profile')}}";--}}
+            {{--}, 2000);--}}
+            {{--} else {--}}
+            {{--$('#userpostForm').css("opacity", "");--}}
+            {{--ShowErrorPopupMsg(data);--}}
+            {{--}--}}
+            {{--},--}}
+            {{--error: function (xhr, status, error) {--}}
+            {{--ShowErrorPopupMsg('Error in uploading...');--}}
+            {{--$('#userpostForm').css("opacity", "");--}}
+            {{--// $('#err1').html(xhr.responseText);--}}
+            {{--// ShowErrorPopupMsg(xhr.message);--}}
+            {{--}--}}
+            {{--});--}}
+            {{--}--}}
+            {{--//                }--}}
+            {{--});--}}
         });
     </script>
 @stop

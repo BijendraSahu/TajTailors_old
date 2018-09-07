@@ -32,13 +32,14 @@ Route::get('view_product/{slug}', 'FrontendController@product_details');
 
 Route::post('login', 'FrontendController@login');
 Route::post('profile_update', 'FrontendController@profile_update');
+Route::get('removeProfile', 'APIController@removeProfile'); //Profile
 Route::get('getexistaddress', 'FrontendController@getexistaddress');
 Route::get('address_update', 'FrontendController@address_update');
 Route::post('change_p', 'FrontendController@change_password');
 Route::post('confirm_order', 'FrontendController@confirm_order');
 Route::get('web_check_promo','FrontendController@web_check_promo');
 
-Route::post('take_appointment', 'FrontendController@take_appointment');
+Route::get('take_appointment', 'FrontendController@take_appointment');
 
 
 Route::get('cart_load', 'CartController@cartload');

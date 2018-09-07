@@ -52,14 +52,14 @@ $new_str = str_replace(' ', '', $firstName);
 
 <!--<form method="post" name="payumoney" action="{{url('Atompay/sample.php')}}" id="payumoney_form_btnblock">-->
 <form method="post" name="payumoney" target="_blank" action="https://secure.payu.in/_payment" id="payumoney_form_btnblock">
-<!--<form method="post" name="payumoney" action="{{url('PaytmKit/TxnTest.php')}}" id="payumoney_form_btnblock">-->
+    <!--<form method="post" name="payumoney" action="{{url('PaytmKit/TxnTest.php')}}" id="payumoney_form_btnblock">-->
 
     <div class="container">
         <div class="col-md-12">
             <div class="form-group">
                 <label for="inputType" class="col-md-2 control-label">Amount<span class="mandatory">*</span><span
-                            style="font-size: 10px; font-weight: 600">(+3% PayUMoney)</span></label>
-                <div class="col-sm-3"><label for=""><b>Rs. {{$totalCost}}&nbsp;({{$amt}} + {{$amt_pum}})</b></label>
+                            style="font-size: 10px; font-weight: 600"></span></label>
+                <div class="col-sm-3"><label for=""><b>Rs. {{$totalCost}}</b></label>
                     <input type="hidden" readonly="readonly" class="form-control" name="amount"
                            value="{{$totalCost}}" id="inputType" placeholder="Enter Amount">
                 </div>
@@ -76,42 +76,50 @@ $new_str = str_replace(' ', '', $firstName);
 
         <div class="col-md-12">
             <div class="form-group">
-                <label for="inputType" class="col-md-2 control-label">Email<span class="mandatory">*</span></label>
-                <div class="col-sm-3"><label for=""><b>{{$email}}</b></label>
-                    <input type="hidden" readonly="readonly" name="email"
-                           value="{{$email}}" class="form-control" id="inputType"
-                           placeholder="Enter Email">
-                </div>
-                <label for="inputType" class="col-md-1 control-label">Phone<span class="mandatory">*</span></label>
+                {{--<label for="inputType" class="col-md-2 control-label">Email<span class="mandatory">*</span></label>--}}
+                {{--<div class="col-sm-3"><label for=""><b>{{$email}}</b></label>--}}
+                {{--<input type="hidden" readonly="readonly" name="email"--}}
+                {{--value="{{$email}}" class="form-control" id="inputType"--}}
+                {{--placeholder="Enter Email">--}}
+                {{--</div>--}}
+                <label for="inputType" class="col-md-2 control-label">Phone<span class="mandatory">*</span></label>
                 <div class="col-sm-3"><label for=""><b>{{$mobile}}</b></label>
                     <input type="hidden" readonly="readonly" name="phone"
                            value="{{$mobile}}" class="form-control" id="inputType"
                            placeholder="Enter Phone"></div>
-            </div>
-        </div>
-        <p class="clearfix"></p>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="inputType" class="col-md-2 control-label">Address:<span class="mandatory">*</span></label>
-                <div class="col-md-7"><label for=""><b>{{$addressdel1}}</b></label>
+
+                <label for="inputType" class="col-md-1 control-label">Address:<span class="mandatory">*</span></label>
+                <div class="col-sm-3"><label for=""><b>{{$addressdel1}}</b></label>
                     <input type="hidden" readonly="readonly" name="addressdel" class="form-control"
                            value="{{$addressdel1}}"
                            placeholder=" Enter Address"></div>
+
             </div>
         </div>
+        {{--<p class="clearfix"></p>--}}
+        {{--<div class="col-md-12">--}}
+        {{--<div class="form-group">--}}
+        {{--<label for="inputType" class="col-md-2 control-label">Address:<span class="mandatory">*</span></label>--}}
+        {{--<div class="col-md-7"><label for=""><b>{{$addressdel1}}</b></label>--}}
+        {{--<input type="hidden" readonly="readonly" name="addressdel" class="form-control"--}}
+        {{--value="{{$addressdel1}}"--}}
+        {{--placeholder=" Enter Address"></div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+
         {{--@if($shipping > 0)--}}
-            {{--<p class="clearfix"></p>--}}
-            {{--<div class="col-md-12">--}}
-                {{--<div class="form-group">--}}
-                    {{--<label for="inputType" class="col-md-2 control-label">Shipping:<span--}}
-                                {{--class="mandatory">*</span></label>--}}
-                    {{--<div class="col-md-7"><label for=""><b>Rs. {{$shipping}}</b></label>--}}
-                        {{--<input type="hidden" readonly="readonly" name="shipping" class="form-control"--}}
-                               {{--value="{{$shipping}}"--}}
-                               {{--placeholder=" Enter Shipping">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
+        {{--<p class="clearfix"></p>--}}
+        {{--<div class="col-md-12">--}}
+        {{--<div class="form-group">--}}
+        {{--<label for="inputType" class="col-md-2 control-label">Shipping:<span--}}
+        {{--class="mandatory">*</span></label>--}}
+        {{--<div class="col-md-7"><label for=""><b>Rs. {{$shipping}}</b></label>--}}
+        {{--<input type="hidden" readonly="readonly" name="shipping" class="form-control"--}}
+        {{--value="{{$shipping}}"--}}
+        {{--placeholder=" Enter Shipping">--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
         {{--@endif--}}
 
         <div class="col-md-12 hidden">

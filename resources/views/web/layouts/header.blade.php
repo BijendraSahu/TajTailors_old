@@ -39,7 +39,7 @@
                             <li onclick="How_slide();">How it works</li>
                             <li onclick="Price_slide();">Prices</li>
                             <li><a class="head_a" href="{{url('product_list')}}">Product</a></li>
-                            <li><a class="head_a menu_main_txt" href="{{url('book_appointment')}}" >Appointment</a>
+                            <li><a class="head_a menu_main_txt" href="{{url('book_appointment')}}">Appointment</a>
                             </li>
                             <li>
                                 <div class="my_account_box glo_menuclick">My Account
@@ -829,8 +829,9 @@
                 if (data == "UserName/Password Invalid") {
                     HidePopoupMsg();
                     ShowErrorPopupMsg('UserName/Password Invalid');
-                }
-                else {
+                } else if (data == "UserName/Password Invalid") {
+
+                } else {
                     HidePopoupMsg();
                     // ShowSuccessPopupMsg('Login Success');
                     window.location.reload();

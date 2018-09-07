@@ -1,6 +1,6 @@
 @extends('web.layouts.e_master')
 
-@section('title', 'Organic Food : Checkout')
+@section('title', 'Taj Tailors : Checkout')
 
 @section('head')
     <script type="text/javascript">
@@ -118,7 +118,7 @@
         }
 
         function proceed_to_pay() {
-            var existaddress = $('#existaddress').val();
+            var existaddress = $('#add_id').val();
             var net_amt = $('#net_amt').val();
             if (net_amt < 1) {
                 swal("Cart Empty", "Your cart is empty", "info");
@@ -140,7 +140,7 @@
             var id = 1;
             var selected_point = $('#selected_point').val();
             var selected_promo = $('#selected_promo').val();
-            var existaddress = $('#existaddress').val();
+            var existaddress = $('#add_id').val();
             var delivery_charge = $('#delivery_charge').text();
             var amt = $('#net_amt').val();
             var payment_url = '{{ url('/') }}' + "/payment/";
@@ -201,28 +201,28 @@
 
 
                                 </div>
-                                <div class="option_availability">
-                                    <div class="option_txt">Pay by point</div>
-                                    <div class="product_right_txt">
-                                        <div class="point_paybox apply" id="applyamt">
-                                            <div class="checkbox">
-                                                <input type="checkbox" name="pay_by_point" id="pay_by_point"
-                                                       value="{{$user->gain_amount}}"
-                                                       onchange="Paybypoint(this);"/>
-                                                <input type="hidden" name="selected_point" id="selected_point"/>
-                                                <input type="hidden" name="selected_promo" id="selected_promo"/>
-                                            </div>
-                                            <i class="mdi mdi-currency-inr" id="point">{{$user->gain_amount}}</i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="option_availability" id="promo_code_box" style="display: none">
-                                    <div class="option_txt">Promo Pay</div>
-                                    <div class="product_right_txt">
-                                        <i class="mdi mdi-currency-inr" id="promo">0.0</i> <i
-                                                onclick="remove_promo()" class="mdi mdi-delete" id="remove_promo"></i>
-                                    </div>
-                                </div>
+                                {{--<div class="option_availability">--}}
+                                    {{--<div class="option_txt">Pay by point</div>--}}
+                                    {{--<div class="product_right_txt">--}}
+                                        {{--<div class="point_paybox apply" id="applyamt">--}}
+                                            {{--<div class="checkbox">--}}
+                                                {{--<input type="checkbox" name="pay_by_point" id="pay_by_point"--}}
+                                                       {{--value="{{$user->gain_amount}}"--}}
+                                                       {{--onchange="Paybypoint(this);"/>--}}
+                                                {{--<input type="hidden" name="selected_point" id="selected_point"/>--}}
+                                                {{--<input type="hidden" name="selected_promo" id="selected_promo"/>--}}
+                                            {{--</div>--}}
+                                            {{--<i class="mdi mdi-currency-inr" id="point">{{$user->gain_amount}}</i>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="option_availability" id="promo_code_box" style="display: none">--}}
+                                    {{--<div class="option_txt">Promo Pay</div>--}}
+                                    {{--<div class="product_right_txt">--}}
+                                        {{--<i class="mdi mdi-currency-inr" id="promo">0.0</i> <i--}}
+                                                {{--onclick="remove_promo()" class="mdi mdi-delete" id="remove_promo"></i>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                             </div>
                             <div class="option_availability">
                                 <div class="option_txt">Net Payable</div>
@@ -250,9 +250,9 @@
                                            @endif">
                                 </div>
                             </div>
-                            <div data-toggle="modal" id="have_a_promo" data-target="#PromoCode" class="promo_txt">
-                                Have a promo code?
-                            </div>
+                            {{--<div data-toggle="modal" id="have_a_promo" data-target="#PromoCode" class="promo_txt">--}}
+                                {{--Have a promo code?--}}
+                            {{--</div>--}}
                             <div class="product_btn_box">
                                 <a class="btn btn-warning btn-sm" href="{{url('product_list')}}"><i
                                             class="mdi mdi-basket basic_icon_margin"></i>Keep Shopping</a>
@@ -290,7 +290,7 @@
                                             <div class="radio_box">
                                                 @if($count == 1)
                                                     <input type="hidden" id="add_id" name="add_id"
-                                                           value="{{$address->id}}">
+                                                           value="{{$address->id}}"/>
                                                 @endif
                                                 <div class="radio">
                                                     <input id="deli_radio_{{$address->id}}"
@@ -642,7 +642,6 @@
             </div>
         </div>
     </section>
-    @include('web.layouts.footer')
     <div class="modal right fade" id="PromoCode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -824,27 +823,12 @@
                     $('#add_address_update').val(data.address);
                     $('#add_city_pre').val(data.city_id);
                     $('#add_pincode_update').val(data.pincode);
-
-//                        $('#add_name').attr('disabled', 'disabled');
-//                        $('#add_email').attr('disabled', 'disabled');
-//                        $('#add_contact').attr('disabled', 'disabled');
-//                        $('#add_address').attr('disabled', 'disabled');
-//                        $('#add_city').attr('disabled', 'disabled');
-//                        $('#add_pincode').attr('disabled', 'disabled');
-//                        $('#update_address').removeAttr('class', 'hidden');
                 },
                 error: function (xhr, status, error) {
                     ShowErrorPopupMsg('Error in uploading...');
                     $('#userpostForm').css("opacity", "");
-                    // $('#err1').html(xhr.responseText);
-                    // ShowErrorPopupMsg(xhr.message);
                 }
             });
-//            } else {
-//                $('#update_address').attr('class', 'hidden');
-//                $('#save_address').attr('class', 'hidden');
-//                empty_address();
-//            }
         }
 
     </script>

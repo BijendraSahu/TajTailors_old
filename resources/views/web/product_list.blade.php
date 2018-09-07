@@ -2496,7 +2496,7 @@
                                 <li>
                                     <div class="checkbox"><label>
                                             <input type="checkbox" onclick="get_fabric_product(this)"
-                                                   id="{{$fabric->id}}" name="{{$fabric->name}}"><span class="cr">
+                                                   id="{{$fabric->id}}" name="fabrik_id"><span class="cr">
                                         <i class="cr-icon mdi mdi-check"></i></span>
                                         </label></div>{{$fabric->name}}
                                 </li>
@@ -2548,7 +2548,8 @@
                         </div>
                         <div class="model_row">
                             <input type="text" class="form-control numberOnly" maxlength="10" id="n_contact"
-                                   placeholder="Mobile No." value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->contact : '' }}"/>
+                                   placeholder="Mobile No."
+                                   value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->contact : '' }}"/>
                         </div>
                         <div class="model_row">
                             <textarea class="form-control glo_txtarea" id="n_message"
@@ -2568,7 +2569,7 @@
         var append_loading_img = '<div class="feed_loadimg_block" id="load_img">' + '<img height="50px" class="center-block" src="{{ url('images/loading.gif') }}"/></div>';
         var append_div = '<div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
 
-        var no_record = '<div class="product_block">No Record Available</div>';
+        var no_record = '<div class="no_found_row">No more items available !</div>';
 
 
         function getItemid(dis) {
@@ -2741,8 +2742,15 @@
         }
 
         function get_fabric_product(dis) {
-            var fabric_id = $(dis).attr('id');
+//            var fabric_id = $(dis).attr('id');
             var limit = 1;
+            fabric_ids = new Array();
+            $('input:checkbox[name=fabrik_id]').each(function () {
+                if ($(this).is(':checked'))
+                    fabric_ids.push($(this).attr('id'));
+            });
+            var fabric_id = fabric_ids;
+//            alert(fabric_id);
             $('#see_id').val(1);
 //            $('#category_id').val(fabric_id);
             $.ajax({

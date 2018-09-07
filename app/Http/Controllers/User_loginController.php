@@ -45,15 +45,26 @@ class User_loginController extends Controller
         DB::table('relations')->insert($add_rltns);
     }
 
-    public
-    function login()
+    public function login()
     {
+        $otp = rand(100000, 999999);
         $mobile = request('login_mobile');
         $password = md5(request('login_password'));
-        $user = DB::selectone("SELECT * FROM `users` WHERE (is_active = 1 and contact = '$mobile' and password = '$password') or (is_active = 1 and email = '$mobile' and password = '$password')");
-        if ($user != null) {
-            $_SESSION['user_master'] = $user;
-            return 'Login Success';
+        $user = UserMaster::where(['contact' => $mobile, 'password' => $password])->first();
+        if (isset($user)) {
+            if ($user->is_active == 1) {
+                if ($user->is_confirmed == 1) {
+                    $_SESSION['user_master'] = $user;
+                    return 'Login Success';
+                } else {
+                    $user->otp = $otp;
+                    $user->save();
+                    file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20Organic%20Dolchi%20user,Your%20verification%20code%20is%20$user->otp");
+                    return 'Not Verified';
+                }
+            } else {
+                return 'inactive';
+            }
         } else {
             return "UserName/Password Invalid";
         }

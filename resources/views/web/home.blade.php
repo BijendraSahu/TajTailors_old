@@ -7,7 +7,8 @@
     <script type="text/javascript" src="{{url('js/sequence.min.js')}}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
     <style type="text/css">
 
     </style>
@@ -83,9 +84,12 @@
             </fieldset>
 
             <ul role="navigation" aria-label="Pagination" class="seq-pagination">
-                <li><a href="#step1" rel="step1" title="Go to Coat"><img src="{{url('images/coat_banner_img.png')}}"/></a></li>
-                <li><a href="#step2" rel="step2" title="Go to Sherwani"><img src="{{url('images/sherwani_banner_img.png')}}"/></a></li>
-                <li><a href="#step3" rel="step3" title="Go to Febric"><img src="{{url('images/febric_banner_imgsmall.png')}}"/></a>
+                <li><a href="#step1" rel="step1" title="Go to Coat"><img
+                                src="{{url('images/coat_banner_img.png')}}"/></a></li>
+                <li><a href="#step2" rel="step2" title="Go to Sherwani"><img
+                                src="{{url('images/sherwani_banner_img.png')}}"/></a></li>
+                <li><a href="#step3" rel="step3" title="Go to Febric"><img
+                                src="{{url('images/febric_banner_imgsmall.png')}}"/></a>
                 </li>
             </ul>
 
@@ -162,7 +166,7 @@
             <div class="row">
                 <div class="main_heading">
                     <div class="main_head_txt">
-                        Stiching Prices
+                        Stitching Prices
                     </div>
                     <div class="border_bottom main_border"></div>
                     <div class="main_subhead">
@@ -190,111 +194,123 @@
                         </div>
                     </div>
                     <div class="price_list_box">
-                        <div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">
-                                2 Piece Suit
-                            </div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4299
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6499
-                            </div>
-                        </div>
+                        @php
+                            $stitches = \Illuminate\Support\Facades\DB::select("SELECT * FROM stitching_prices where is_active = 1");
+                        @endphp
+                        @if(count($stitches))
+                            @foreach($stitches as $stitch)
+                                <div class="price_list_row">
+                                    <div class="price_product_box price_product_list_col">
+                                        {{$stitch->product_name}}
+                                    </div>
+                                    <div class="price_basic price_list_col">
+                                        <i class="mdi mdi-currency-inr"></i>{{$stitch->basic_price}}
+                                    </div>
+                                    <div class="price_premium price_list_col">
+                                        <i class="mdi mdi-currency-inr"></i>{{$stitch->premium_price}}
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
 
-                        <div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">
-                                Tuxedo Suit (2 piece)
-                            </div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4699
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6899
-                            </div>
-                        </div>
-                        <div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">3 Piece Suit</div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4699
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6899
-                            </div>
-                        </div>
-                        <div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">Safari Suit</div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4699
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6899
-                            </div>
-                        </div>
-                        <div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">Blazer</div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4699
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6899
-                            </div>
-                        </div>
-                        <div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">BandhGala Blazer</div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4699
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6899
-                            </div>
-                        </div>
-                        <div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">Tuxedo Blazer</div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4699
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6899
-                            </div>
-                        </div>
-                        <div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">Overcoat/Long Coat</div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4699
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6899
-                            </div>
-                        </div>
-                        <div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">Shirt</div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4699
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6899
-                            </div>
-                        </div><div class="price_list_row">
-                            <div class="price_product_box price_product_list_col">Trouser</div>
-                            <div class="price_basic price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>4699
-                            </div>
-                            <div class="price_premium price_list_col">
-                                <i class="mdi mdi-currency-inr"></i>6899
-                            </div>
-                        </div>
+                        {{-- <div class="price_list_row">
+                             <div class="price_product_box price_product_list_col">
+                                 Tuxedo Suit (2 piece)
+                             </div>
+                             <div class="price_basic price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>4699
+                             </div>
+                             <div class="price_premium price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>6899
+                             </div>
+                         </div>
+                         <div class="price_list_row">
+                             <div class="price_product_box price_product_list_col">3 Piece Suit</div>
+                             <div class="price_basic price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>4699
+                             </div>
+                             <div class="price_premium price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>6899
+                             </div>
+                         </div>
+                         <div class="price_list_row">
+                             <div class="price_product_box price_product_list_col">Safari Suit</div>
+                             <div class="price_basic price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>4699
+                             </div>
+                             <div class="price_premium price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>6899
+                             </div>
+                         </div>
+                         <div class="price_list_row">
+                             <div class="price_product_box price_product_list_col">Blazer</div>
+                             <div class="price_basic price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>4699
+                             </div>
+                             <div class="price_premium price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>6899
+                             </div>
+                         </div>
+                         <div class="price_list_row">
+                             <div class="price_product_box price_product_list_col">BandhGala Blazer</div>
+                             <div class="price_basic price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>4699
+                             </div>
+                             <div class="price_premium price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>6899
+                             </div>
+                         </div>
+                         <div class="price_list_row">
+                             <div class="price_product_box price_product_list_col">Tuxedo Blazer</div>
+                             <div class="price_basic price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>4699
+                             </div>
+                             <div class="price_premium price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>6899
+                             </div>
+                         </div>
+                         <div class="price_list_row">
+                             <div class="price_product_box price_product_list_col">Overcoat/Long Coat</div>
+                             <div class="price_basic price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>4699
+                             </div>
+                             <div class="price_premium price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>6899
+                             </div>
+                         </div>
+                         <div class="price_list_row">
+                             <div class="price_product_box price_product_list_col">Shirt</div>
+                             <div class="price_basic price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>4699
+                             </div>
+                             <div class="price_premium price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>6899
+                             </div>
+                         </div>
+                         <div class="price_list_row">
+                             <div class="price_product_box price_product_list_col">Trouser</div>
+                             <div class="price_basic price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>4699
+                             </div>
+                             <div class="price_premium price_list_col">
+                                 <i class="mdi mdi-currency-inr"></i>6899
+                             </div>
+                         </div>--}}
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <section class="home_about" id="review_row_block">
+        @php
+            $testimonial = \App\Testimonial::where(['is_active'=>1])->get();
+            $count = 1;
+        @endphp
         <div class="container">
             <div class="row">
                 <div class="main_heading">
                     <div class="main_head_txt">
-                        Coustomer Reviews
+                        Testimonials
                     </div>
                     <div class="border_bottom main_border"></div>
                     <div class="main_subhead">
@@ -302,86 +318,102 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div id="testimonial-slider" class="owl-carousel testomonial_mainbox">
-                        <div class="testimonial">
-                            <div class="pic">
-                                <img src="images/testominial_img1.jpg" alt="">
+                    @if(count($testimonial)>0)
+                        <div id="testimonial-slider" class="owl-carousel testomonial_mainbox">
+                            @foreach($testimonial as $test)
+                            <div class="testimonial">
+                                <div class="pic">
+                                    @if($test->user->profile_img != 'images/Male_default.png')
+                                        <img src="{{url('u_img').'/'.$test->user_id.'/'.$test->user->profile_img}}">
+                                    @else
+                                        <img src="{{url('images/Male_default.png')}}">
+                                    @endif
+                                </div>
+                                <p class="description">{{$test->review}}</p>
+                                <div class="testimonial-content">
+                                    <a href="#" class="title">{{$test->user->name}}</a>
+                                    {{--<span class="post">Web Developer</span>--}}
+                                </div>
                             </div>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus est non
-                                fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
-                            </p>
-                            <div class="testimonial-content">
-                                <a href="#" class="title">Williamson</a>
-                                <span class="post">Web Developer</span>
+                                @php $count++ @endphp
+                            @endforeach
+                           {{-- <div class="testimonial">
+                                <div class="pic">
+                                    <img src="images/testominial_img2.jpg" alt="">
+                                </div>
+                                <p class="description">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus
+                                    est
+                                    non
+                                    fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
+                                </p>
+                                <div class="testimonial-content">
+                                    <a href="#" class="title">kristiana</a>
+                                    <span class="post">Web Designer</span>
+                                </div>
                             </div>
+                            <div class="testimonial">
+                                <div class="pic">
+                                    <img src="images/testominial_img3.jpg" alt="">
+                                </div>
+                                <p class="description">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus
+                                    est
+                                    non
+                                    fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
+                                </p>
+                                <div class="testimonial-content">
+                                    <a href="#" class="title">Williamson</a>
+                                    <span class="post">Web Developer</span>
+                                </div>
+                            </div>
+                            <div class="testimonial">
+                                <div class="pic">
+                                    <img src="images/testominial_img4.jpg" alt="">
+                                </div>
+                                <p class="description">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus
+                                    est
+                                    non
+                                    fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
+                                </p>
+                                <div class="testimonial-content">
+                                    <a href="#" class="title">kristiana</a>
+                                    <span class="post">Web Designer</span>
+                                </div>
+                            </div>
+                            <div class="testimonial">
+                                <div class="pic">
+                                    <img src="images/testominial_img3.jpg" alt="">
+                                </div>
+                                <p class="description">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus
+                                    est
+                                    non
+                                    fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
+                                </p>
+                                <div class="testimonial-content">
+                                    <a href="#" class="title">Williamson</a>
+                                    <span class="post">Web Developer</span>
+                                </div>
+                            </div>
+                            <div class="testimonial">
+                                <div class="pic">
+                                    <img src="images/testominial_img2.jpg" alt="">
+                                </div>
+                                <p class="description">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus
+                                    est
+                                    non
+                                    fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
+                                </p>
+                                <div class="testimonial-content">
+                                    <a href="#" class="title">kristiana</a>
+                                    <span class="post">Web Designer</span>
+                                </div>
+                            </div>--}}
                         </div>
-                        <div class="testimonial">
-                            <div class="pic">
-                                <img src="images/testominial_img2.jpg" alt="">
-                            </div>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus est non
-                                fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
-                            </p>
-                            <div class="testimonial-content">
-                                <a href="#" class="title">kristiana</a>
-                                <span class="post">Web Designer</span>
-                            </div>
-                        </div>
-                        <div class="testimonial">
-                            <div class="pic">
-                                <img src="images/testominial_img3.jpg" alt="">
-                            </div>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus est non
-                                fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
-                            </p>
-                            <div class="testimonial-content">
-                                <a href="#" class="title">Williamson</a>
-                                <span class="post">Web Developer</span>
-                            </div>
-                        </div>
-                        <div class="testimonial">
-                            <div class="pic">
-                                <img src="images/testominial_img4.jpg" alt="">
-                            </div>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus est non
-                                fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
-                            </p>
-                            <div class="testimonial-content">
-                                <a href="#" class="title">kristiana</a>
-                                <span class="post">Web Designer</span>
-                            </div>
-                        </div>
-                        <div class="testimonial">
-                            <div class="pic">
-                                <img src="images/testominial_img3.jpg" alt="">
-                            </div>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus est non
-                                fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
-                            </p>
-                            <div class="testimonial-content">
-                                <a href="#" class="title">Williamson</a>
-                                <span class="post">Web Developer</span>
-                            </div>
-                        </div>
-                        <div class="testimonial">
-                            <div class="pic">
-                                <img src="images/testominial_img2.jpg" alt="">
-                            </div>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer convallis tempus est non
-                                fermentum. Nulla ut placerat tellus. Donec faucibus mi eu felis bibendum, eget.
-                            </p>
-                            <div class="testimonial-content">
-                                <a href="#" class="title">kristiana</a>
-                                <span class="post">Web Designer</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

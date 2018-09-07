@@ -1,6 +1,6 @@
 @extends('web.layouts.e_master')
 
-@section('title', 'Taj Tailors : Product Feedback')
+@section('title', 'Organic Food : Product List')
 
 @section('head')
     <script type="text/javascript">
@@ -23,13 +23,13 @@
 @stop
 @section('content')
     <section class="feedback_block">
-        <div class="container-fluid">
+        <div class="container-fluid res_pad0">
             <div class="col-sm-12 col-md-9">
                 <div class="order_listbox">
                     <div class="carousal_head">
                         <span class="filter_head_txt slider_headtxt">Ratings & Reviews</span>
                     </div>
-                    <div class="order_list_container">
+                    <div class="order_list_container" id="feedback_refresh">
                         @if(count($orders)>0)
                             @foreach($orders as $order)
                                 @php
@@ -52,17 +52,17 @@
                                                 <div class="product_name">
                                                     <a href="{{url('view_product').'/'.(encrypt($item->id))}}">{{$item->name}}</a>
                                                 </div>
-                                                <div class="option_availability">
-                                                    <div class="option_txt">Specification</div>
-                                                    <div class="product_right_txt">
-                                                        {!! $item->specifcation!!}
-                                                    </div>
-                                                </div>
+                                                {{-- <div class="option_availability">
+                                                     <div class="option_txt">Specification</div>
+                                                     <div class="product_right_txt">
+                                                         {!! $item->specifcation!!}
+                                                     </div>
+                                                 </div>--}}
                                                 {{--<div class="option_availability">--}}
-                                                    {{--<div class="option_txt">Container Type</div>--}}
-                                                    {{--<div class="product_right_txt">--}}
-                                                        {{--Bottle--}}
-                                                    {{--</div>--}}
+                                                {{--<div class="option_txt">Container Type</div>--}}
+                                                {{--<div class="product_right_txt">--}}
+                                                {{--Bottle--}}
+                                                {{--</div>--}}
                                                 {{--</div>--}}
                                                 <div class="option_availability">
                                                     <div class="option_txt">Qty</div>
@@ -78,13 +78,36 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="desc_cart">
+                                                    <div class="des_txt">Specifications :</div>
+                                                    <div class="des_details">
+                                                        {!! $item->specifcation!!}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             @php
-                                                $review = \App\Review::where(['item_master_id'=>$item->id, 'user_id'=>$_SESSION['user_master']->id])->first();
+                                                $review = \App\Review::where(['item_master_id'=>$item->id, 'user_id'=>$_SESSION['user_master']->id, 'order_description_id'=>$order->ods_id])->first();
                                             @endphp
-                                            @if(!isset($review))
+                                            @if(isset($review))
+                                                <div class="feedback_heading">Rated</div>
+                                                <div class="feedback_txt">
+                                                    <div class="star-rating">
+                                                        @for ($x = 1; $x <= 5; $x++)
+                                                            @if($x <= $review->star_rating)
+                                                                <span class="mdi mdi-star"></span>
+                                                            @else
+                                                                <span class="mdi mdi-star-outline"></span>
+                                                            @endif
+                                                        @endfor
+
+                                                    </div>
+                                                </div>
+                                                <div class="feedback_txt">
+                                                    {{$review->review}}
+                                                </div>
+                                            @else
                                                 <div class="feedback_heading">Rate this product</div>
                                                 <div class="feedback_txt">
                                                     <div class="star-rating">
@@ -121,23 +144,6 @@
                                                      onclick="submit_review(this);">
                                                     <span class="mdi mdi-playlist-edit basic_icon_margin"></span>Submit
                                                 </div>
-                                            @else
-                                                <div class="feedback_heading">Rated</div>
-                                                <div class="feedback_txt">
-                                                    <div class="star-rating">
-                                                        @for ($x = 1; $x <= 5; $x++)
-                                                            @if($x <= $review->star_rating)
-                                                                <span class="mdi mdi-star"></span>
-                                                            @else
-                                                                <span class="mdi mdi-star-outline"></span>
-                                                            @endif
-                                                        @endfor
-
-                                                    </div>
-                                                </div>
-                                                <div class="feedback_txt">
-                                                    {{$review->review}}
-                                                </div>
                                             @endif
                                         </div>
                                     </div>
@@ -155,6 +161,7 @@
                         <span class="filter_head_txt slider_headtxt">What makes a good review</span>
                     </div>
                     <div class="order_list_container">
+                        <p id="err"></p>
                         <div class="feedback_heading">
                             Have you used this product?
                         </div>
@@ -185,11 +192,11 @@
             var order_des_id = $(dis).attr('id');
             var item_id = $(dis).attr('data-content');
             var review = $('#review_' + item_id).val();
-            var star_rating = $('#rating').val();
+            var star_rating = $(dis).parent().find('#rating').val();
             if (star_rating.trim() == '') {
-                alert('please select star rating for this product');
+                swal("Oops", "please select star rating for this product", "info");
             } else if (review.trim() == '') {
-                alert('please enter review for this product');
+                swal("Oops", "please enter review for this product", "info");
             } else {
                 $.ajax({
                     type: "post",
@@ -198,17 +205,17 @@
                     data: '{"order_des_id":"' + order_des_id + '", "item_id":"' + item_id + '", "review":"' + review + '", "star_rating":"' + star_rating + '"}',
                     success: function (data) {
                         if (data == 'success') {
-                            ShowSuccessPopupMsg('Your review has been submitted...');
+                            swal("Success", "Your review has been submitted...", "success");
                             setTimeout(function () {
-                                window.location.reload();
-                            }, 2000);
+                                $("#feedback_refresh").load(location.href + " #feedback_refresh");
+                            }, 1000);
                         } else {
-                            ShowErrorPopupMsg('Error in review');
+                            swal("Oops", "Something went wrong with review please try again later", "info");
                         }
                     },
                     error: function (xhr, status, error) {
-                        ShowErrorPopupMsg('Server not responding please try again later');
-                        // $('#err1').html(xhr.responseText);
+//                        $('#err').html(xhr.responseText);
+                        swal("Oops", "Server not responding please try again later", "info");
                     }
                 });
             }
