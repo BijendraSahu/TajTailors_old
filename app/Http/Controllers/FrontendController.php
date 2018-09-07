@@ -156,7 +156,9 @@ class FrontendController extends Controller
         $item = ItemMaster::find($id);
         $item_images = ItemImages::where(['item_master_id' => $item->id])->get();
         $item_prices = ItemPrice::where(['item_master_id' => $item->id])->get();
-        return view('web.product_details')->with(['item' => $item, 'item_images' => $item_images, 'item_prices' => $item_prices]);
+        $reviews = Review::where(['item_master_id' => $item->id, 'is_approved' => 1])->get();
+
+        return view('web.product_details')->with(['item' => $item, 'item_images' => $item_images, 'item_prices' => $item_prices, 'reviews' => $reviews]);
     }
 
     /**********Product Feedback*********/
@@ -374,21 +376,7 @@ class FrontendController extends Controller
     /**************************Subscribe************************************/
 
 
-    /**************************Appointment************************************/
-    public function take_appointment()
-    {
-        $appointment = new Appointment();
-        $appointment->name = request('name');
-        $appointment->email = request('email');
-        $appointment->contact = request('contact');
-        $appointment->appointment_date = Carbon::parse(request('appointment_date'))->format('Y-m-d');
-        $appointment->appointment_time = request('appointment_time');
-        $appointment->address = request('address');
-        $appointment->save();
-        return 'success';
-//        return redirect('book_appointment')->with('message', 'Your appointment request has been saved we will get back to you soon');
-    }
-    /**************************Appointment************************************/
+
 
 
     /**************************Cart************************************/
@@ -567,10 +555,25 @@ class FrontendController extends Controller
         return view('web.terms_conditions');
     }
 
+    /**************************Appointment************************************/
     public function book_appointment()
     {
         return view('web.book_appointment');
     }
+    public function take_appointment()
+    {
+        $appointment = new Appointment();
+        $appointment->name = request('name');
+        $appointment->email = request('email');
+        $appointment->contact = request('contact');
+        $appointment->appointment_date = Carbon::parse(request('appointment_date'))->format('Y-m-d');
+        $appointment->appointment_time = request('appointment_time');
+        $appointment->address = request('address');
+        $appointment->save();
+        return 'success';
+//        return redirect('book_appointment')->with('message', 'Your appointment request has been saved we will get back to you soon');
+    }
+    /**************************Appointment************************************/
 
     public function notify()
     {

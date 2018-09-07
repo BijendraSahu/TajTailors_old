@@ -93,15 +93,6 @@ function validate(frm) {
             unsetError.call(this);
     });
 
-    parent_fieldset.find('.required').each(function () {
-        if ($(this).val() == "") {
-            $(this).parents('.textbox_containner').addClass('input-error');
-            next_step = false;
-        }
-        else {
-            $(this).parents('.textbox_containner').removeClass('input-error');
-        }
-    });
 
     $("#" + frmId + " .requiredDD").each(function () {
         if ($(this).val() == 0) {

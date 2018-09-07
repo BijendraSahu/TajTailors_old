@@ -12,11 +12,12 @@ class AdminController extends Controller
 {
     public function admin()
     {
-        if (isset($_SESSION['admin_master'])) {
+        if ($_SESSION['admin_master'] != null) {
             $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
             $allcat = Categorymaster::where(['is_active' => 1])->get();
             $alldata1 = Categorymaster::where(['is_active' => 1])->get();
-            return view('adminview.dashboard', ['alldata' => $alldata , 'alldata1' => $alldata1 , 'allcat' => $allcat] )->with('no', 1);
+            $data = LoginModel::find(['id' => $_SESSION['admin_master']['id']])->first();
+            return view('adminview.dashboard', ['alldata' => $alldata, 'alldata1' => $alldata1, 'allcat' => $allcat, 'data' => $data])->with('no', 1);
         } else {
             return redirect('/adminlogin');
         }
@@ -27,14 +28,13 @@ class AdminController extends Controller
     {
 
         if ($_SESSION['admin_master'] != null) {
-            $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
+            $alldata = Categorymaster::where(['is_active' => 1])->orderBy('id', 'desc')->paginate(10);
             $allcat = Categorymaster::where(['is_active' => 1])->get();
             $alldata1 = Categorymaster::where(['is_active' => 1])->get();
-            return view('adminview.category', ['alldata' => $alldata , 'alldata1' => $alldata1 , 'allcat' => $allcat] )->with('no', 1);
+            return view('adminview.category', ['alldata' => $alldata, 'alldata1' => $alldata1, 'allcat' => $allcat])->with('no', 1);
         } else {
             return redirect('/adminlogin');
         }
-
     }
 
     public function adminlogin()
@@ -57,8 +57,6 @@ class AdminController extends Controller
         } else {
             /*return redirect('/adminlogin')->withInput()->withErrors(array('message' => 'UserName or password Invalid'));*/
             return 'fail';
-
         }
-
     }
 }

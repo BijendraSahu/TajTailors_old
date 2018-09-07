@@ -23,7 +23,8 @@
                  {{--   <img src="" alt="Organic product">--}}
                 </div>
                 <div class="product_name">
-                    <a class="product_details_link" href="product_details.php">{{$desobj->my_name->name}}</a>
+                    <a target="_blank" class="product_details_link"
+                       href="{{url('view_product').'/'.$desobj->item_master_id}}">{{$desobj->my_name->name}}</a>
                 </div>
                 <div class="option_availability">
                     <div class="option_txt">Product Type </div>

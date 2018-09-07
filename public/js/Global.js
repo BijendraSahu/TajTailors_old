@@ -195,6 +195,10 @@ function ShowLoginSignup(txt) {
         $('#loginSignup_popup').find('.left_block').slideUp();
         $('#loginSignup_popup').find('.right_block').slideUp();
         $('#loginSignup_popup').find('.forgot').slideDown();
+    }  else if (txt == 'verify') {
+        $('#loginSignup_popup').find('.left_block').slideUp();
+        $('#loginSignup_popup').find('.right_block').slideUp();
+        $('#loginSignup_popup').find('.verify').slideDown();
     } else {
         $('#loginSignup_popup').find('.left_block').slideUp();
         $('#loginSignup_popup').find('.right_block').slideUp();

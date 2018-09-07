@@ -297,9 +297,7 @@
                                         <thead>
                                         <tr>
                                             <th>Product Name</th>
-                                            <th>Price</th>
-                                            <th>Special Price</th>
-                                            <th>Description</th>
+                                            <th width="50%">Description</th>
                                             <th>Status</th>
                                             <th>option</th>
                                         </tr>
@@ -313,8 +311,6 @@
                                             <tr id="oldid">
                                                 <input type="hidden" value="{{$itemobj->id}}">
                                                 <td>{{$itemobj->name}}</td>
-                                                <td>{{$itemobj->price}}</td>
-                                                <td>{{isset($itemobj->special_price)?$itemobj->special_price:'-'}}</td>
                                                 @if($itemobj->description=="")
                                                     <td width="30%">Not Given</td>
                                                 @else
@@ -437,63 +433,34 @@
                                         </div>
                                         <br>
 
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_specification" name="item_specification"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Specification">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_ingredients" name="item_ingredients"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Ingredients">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_nutrients" name="item_nutrients"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Available Nutrients">
-                                        </div>
+                                        <div>
+                                            <div class="form-group field_wrapper">
+                                                <label class="form-label">Enter Price Details<span
+                                                            style="color: red;">*</span></label>
+                                                <br>
+                                                <div class="col-sm-1 form-group">
+                                                    <select class="form-control" name="unit[]" id="weight">
+                                                        <option value="30">30</option>
+                                                        <option value="32">32</option>
+                                                        <option value="34">34</option>
+                                                        <option value="36">36</option>
+                                                        <option value="38">38</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Qty" required/>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <a href="javascript:void(0);" class="addbtn add_button"
+                                                       name="price[]"
+                                                       title="Add field"><img src="{{url('assets/add-icon.png')}}"/></a>
+                                                </div>
+                                                <p class="clearfix"></p>
 
-                                        <div class="col-sm-6 form-group">
-
-                                            <input type="text" id="item_usage" name="item_usage"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Usage">
-                                        </div>
-
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="price" name="price"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Price" required>
-                                        </div>
-
-                                        <div class="col-sm-6 form-group">
-
-                                            <input type="text" id="special_price" name="special_price"
-                                                   class="form-control"
-                                                   placeholder="Enter Special Price">
-                                        </div>
-                                        <div class="form-group field_wrapper">
-                                            <label class="form-label">Enter Size Details<span
-                                                        style="color: red;">*</span></label>
-                                            <br>
-
-                                            <div class="col-sm-1 form-group">
-                                                <select class="form-control" name="size[]" id="size">
-                                                    <option value="30">30</option>
-                                                    <option value="32">32</option>
-                                                    <option value="34">34</option>
-                                                    <option value="36">36</option>
-                                                    <option value="38">38</option>
-                                                </select>
                                             </div>
-
-                                            <div class="col-sm-1 form-group">
-                                                <a href="javascript:void(0);" class="addbtn add_button" name="size[]"
-                                                   title="Add field"><img src="{{url('assets/add-icon.png')}}"/></a>
-                                            </div>
-                                            <p class="clearfix"></p>
-
                                         </div>
+
 
                                         <p class="clearfix"></p>
 
@@ -511,8 +478,12 @@
 
                                         <div class="col-sm-6 form-group">
 
-                                            <input type="text" name="item_delivery" class="form-control"
-                                                   placeholder="Enter Delivery Information">
+                                            <input type="text" name="price" class="form-control"
+                                                   placeholder="Enter Price">
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <input type="text" name="special_price" class="form-control"
+                                                   placeholder="Enter Special Price">
                                         </div>
                                         <div class="col-sm-6 form-group">
                                             <input type="text" name="item_metatag" class="form-control"
@@ -526,6 +497,7 @@
                                             <input type="text" name="item_metadescription" class="form-control"
                                                    placeholder="Enter Meta Description">
                                         </div>
+
                                         <div class="col-sm-6 form-group">
                                             <input type="submit" value="Add"
                                                    class="btn btn-success">
@@ -547,16 +519,18 @@
     </section>
 
 
+
     {{--////////////////////////////////////////////////*****Start Menu 3******//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--}}
 
 
     <script>
 
         $(document).ready(function () {
-            var maxField = 5; //Input fields increment limitation
+            debugger;
+            var maxField = 4; //Input fields increment limitation
             var addButton = $('.add_button'); //Add button selector
             var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML = '<div class="col-sm-1 form-group"><select class="form-control" name="size[]" id="weight"> <option value="30">30</option><option value="32">32</option><option value="34">34</option><option value="36">36</option><option value="38">38</option></select></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a></div><p class="clearfix"></p>'; //New input field html
+            var fieldHTML = '<div class="append_div"><div class="col-sm-1 form-group"><select class="form-control" name="unit[]" id="weight"><option value="30">30</option><option value="32">32</option><option value="34">34</option><option value="36">36</option><option value="38">38</option></select></div><div class="col-sm-1 form-group"><input type="text" class="form-control"name="unit[]" value="" placeholder="Qty"required/></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a><p class="clearfix"></p></div>'; //New input field html
             var x = 1; //Initial field counter is 1
             $(addButton).click(function () { //Once add button is clicked
                 if (x < maxField) { //Check maximum number of input fields
@@ -565,11 +539,13 @@
                 }
             });
             $(wrapper).on('click', '.remove_button', function (e) { //Once remove button is clicked
+                debugger;
                 e.preventDefault();
-                $(this).parent('div').remove(); //Remove field html
+                $(this).parent('.append_div').remove(); //Remove field html
                 x--; //Decrement field counter
             });
         });
+
 
         function openAddform() {
             $('#item_form').show();
@@ -918,19 +894,6 @@
                                 var sts = '<div class="status approved">Inactive</div>';
                             }
 
-                            if (data[i].price == null) {
-                                var price = "Not Given"
-                            }
-                            else {
-                                var price = data[i].price
-                            }
-
-                            if (data[i].special_price == null) {
-                                var special_price  = "Not Given"
-                            }
-                            else {
-                                var special_price  = data[i].special_price
-                            }
                             if (data[i].description == null) {
                                 var des = "Not Given"
                             }
@@ -938,7 +901,7 @@
                                 var des = data[i].description
                             }
 
-                            $('#newid').append('<tr><td>' + data[i].name + '</td><td>' + price + '</td><td>' + special_price + '</td><td>' + des + '</td><td>' + sts + ' </td><td><div class="btn-group"><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options </button><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu dropdown-menu-right grid-dropdown"><li><a href="' + url + '" data-toggle="modal" data-target="#"><i class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a></li><li><a href="#" onclick="deactivate_item(' + data[i].id + ');"><i class="mdi mdi-delete optiondrop_icon"></i>Delete</a></li><li><a href="#" onclick="openMymo(' + data[i].id + ');" class="border_none" data-toggle="modal" data-target=""><i class="mdi mdi-more optiondrop_icon"></i>More</a></li></ul></div></td></tr>');
+                            $('#newid').append('<tr><td>' + data[i].name + '</td><td width="30%">' + des + '</td><td>' + sts + ' </td><td><div class="btn-group"><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options </button><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu dropdown-menu-right grid-dropdown"><li><a href="' + url + '" data-toggle="modal" data-target="#"><i class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a></li><li><a href="#" onclick="deactivate_item(' + data[i].id + ');"><i class="mdi mdi-delete optiondrop_icon"></i>Delete</a></li><li><a href="#" onclick="openMymo(' + data[i].id + ');" class="border_none" data-toggle="modal" data-target=""><i class="mdi mdi-more optiondrop_icon"></i>More</a></li></ul></div></td></tr>');
                         }
                     }
                 });

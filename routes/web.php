@@ -14,8 +14,15 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+Route::GET('lgt', function () {
+    session_start();
+    $_SESSION['admin_master'] = null;
+    $_SESSION['user_master'] = null;
+    return redirect('/access');
+});
 Route::GET('logout', function () {
     session_start();
+    $_SESSION['admin_master'] = null;
     $_SESSION['user_master'] = null;
     return redirect('/');
 });
@@ -39,7 +46,6 @@ Route::post('change_p', 'FrontendController@change_password');
 Route::post('confirm_order', 'FrontendController@confirm_order');
 Route::get('web_check_promo','FrontendController@web_check_promo');
 
-Route::get('take_appointment', 'FrontendController@take_appointment');
 
 
 Route::get('cart_load', 'CartController@cartload');
@@ -68,10 +74,25 @@ Route::get('contact_us', 'FrontendController@contact_us');
 Route::get('return_policy', 'FrontendController@return_policy');
 Route::get('terms_conditions', 'FrontendController@terms_conditions');
 Route::get('book_appointment', 'FrontendController@book_appointment');
+Route::get('take_appointment', 'FrontendController@take_appointment');
 Route::get('notify', 'FrontendController@notify');
 Route::get('subscribe', 'FrontendController@subscribe');
 
+Route::get('register_user', 'User_loginController@register');
+Route::get('login_user', 'User_loginController@login');
+Route::get('checkno', 'User_loginController@checkno');
+Route::get('checkemail', 'User_loginController@checkemail');
+Route::get('verify_otp', 'User_loginController@verify_otp');
+Route::get('forgot_password', 'User_loginController@forgot_password');
+Route::get('ask_number','AskController@ask_number');
 
+
+Route::get('testimonials','TestimonialsController@list');
+Route::get('/addtstimonials','TestimonialsController@addtstimonials');
+Route::get('/inactivetest','TestimonialsController@inactivetest');
+Route::get('/activetest','TestimonialsController@activetest');
+Route::get('/deletetest','TestimonialsController@deletetest');
+Route::get('subscribe_list','SubscribeController@view');
 
 /*************API******************/
 Route::get('getCategory','APIController@getCategory');
@@ -97,11 +118,10 @@ Route::get('getOrders','APIController@getOrders');
 
 
 /////////////////////////////////******Aditya***********/////////////////////////////////////////////////////////////////////////
-Route::get('register_user', 'User_loginController@register');
-Route::POST('login_user', 'User_loginController@login');
+
 ///////////////////////////////admin/////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/admin', 'AdminController@admin');
-Route::get('/adminlogin', 'AdminController@adminlogin');
+Route::get('/access', 'AdminController@adminlogin');
 Route::get('/logincheck', 'AdminController@logincheck');
 /////////////////////******Category*****///////////////////////////////////////////////////////////////////////////////
 Route::get('/category', 'AdminController@category');
@@ -141,6 +161,7 @@ Route::get('/active_order', 'OrderController@active_order');
 Route::get('/inactive_order', 'OrderController@inactive_order');
 Route::get('/more_order/{id}', 'OrderController@more_order');
 Route::get('/bill_order/{id}', 'OrderController@bill_order');
+Route::get('delete_item_pic', 'ItemmasterController@delete_item_pic');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/statelist', 'StateController@statelist');
 Route::get('/add_state', 'StateController@add_state');
@@ -165,7 +186,6 @@ Route::get('/delete_del','DeliveryController@delete_del');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/ask','AskController@ask');
-Route::get('ask_number','AskController@ask_number');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/blog','BlogController@blog');
 Route::get('/addblogcat','BlogController@addblogcat');

@@ -6,10 +6,11 @@
 <link rel="stylesheet" href="{{url('css/flaticon.css')}}"/>
 <link rel="stylesheet" href="{{url('css/frount.css')}}"/>
 <link rel="stylesheet" href="{{url('css/media.css')}}"/>
+<link rel="stylesheet" href="{{url('css/datepicker.css')}}"/>
 <script src="{{url('js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{url('js/bootstrap.min.js')}}"></script>
-<script src="{{url('js/datepicker.css')}}"></script>
 <script src="{{url('js/Datepicker.js')}}"></script>
 <script src="{{url('js/Global.js')}}"></script>
 <script src="{{url('js/sweetalert.min.js')}}"></script>
+<script src="{{url('js/login_validation.js')}}"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet"/>

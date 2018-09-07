@@ -7,7 +7,7 @@
 
     <section class="common_section">
         <div class="container">
-            <div class="updated_box ">
+            <div class="updated_box " id="appointment">
                 <div class="top_heading_box">
                     <span class="heading_txt">Appointment Information</span>
                 </div>
@@ -16,15 +16,15 @@
                     <div class="update_databox">
                         <div class="update_profile_row row">
                             <div class="col-sm-6">
-                                <div class="textbox_containner ">
+                                <div class="textbox_containner">
                                     <input type="text" name="name" autocomplete="off"
                                            class="animate_txt"
-                                           id="name" placeholder="Enter Name"/>
+                                           id="app_name" placeholder="Enter Name"/>
                                     <label class="animate_placeholder" for="name">Name*</label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="textbox_containner required ">
+                                <div class="textbox_containner">
                                     <input type="email" name="email" autocomplete="off"
                                            class="animate_txt"
                                            id="email" placeholder="xyz@gmail.com"/>
@@ -58,7 +58,7 @@
                             <div class="col-sm-6">
                                 <select name="time_slot" id="appointment_time"
                                         class="form-control requiredDD drop_edit">
-                                    <option value="">Select Time Slot*</option>
+                                    <option value="0">Select Time Slot*</option>
                                     <option value="09:00 - 10:00">09:00 - 10:00</option>
                                     <option value="10:00 - 11:00">10:00 - 11:00</option>
                                     <option value="11:00 - 12:00">11:00 - 12:00</option>
@@ -107,22 +107,22 @@
             }
         });
         function book_appointment() {
-            var name = $('#name').val();
+            var name = $('#app_name').val();
             var email = $('#email').val();
             var contact = $('#contact').val();
             var appointment_date = $('#appointment_date').val();
-            var appointment_time = $('#appointment_time selected').val();
+            var appointment_time = $('#appointment_time option:selected').val();
             var address = $('#address').val();
             if (name == '') {
-                swal("Oops....", "Please enter your name", "info");
+                swal("Required....", "Please enter your name", "info");
             } else if (email == '') {
-                swal("Oops....", "Please enter email", "info");
+                swal("Required....", "Please enter email", "info");
             } else if (contact == '') {
-                swal("Oops....", "Please enter contact", "info");
+                swal("Required....", "Please enter contact", "info");
             } else if (appointment_date == '') {
-                swal("Oops....", "Please select appointment date", "info");
+                swal("Required....", "Please select appointment date", "info");
             } else if (appointment_time == '') {
-                swal("Oops....", "Please select appointment time", "info");
+                swal("Required....", "Please select appointment time", "info");
             } else {
                 $.ajax({
                     type: "get",
@@ -134,15 +134,12 @@
                         email: email,
                         contact: contact,
                         appointment_date: appointment_date,
+                        address: address,
                         appointment_time: appointment_time
                     },
                     success: function (data) {
                         if (data == 'success') {
-                            $('#name').val('');
-                            $('#email').val('');
-                            $('#contact').val('');
-                            $('#appointment_date').val('');
-                            $('#appointment_time selected').val('');
+                            $("#appointment").load(location.href + " #appointment");
                             swal("Success", "Your appointment request has been saved we will get back to you soon", "success");
                         }
                     },
@@ -153,13 +150,14 @@
                 });
             }
         }
-
+        var date = new Date();
         $('.dtp').datepicker({
             format: "dd-MM-yyyy",
             maxViewMode: 2,
             todayHighlight: true,
             daysOfWeekHighlighted: "0",
             autoclose: true,
+            startDate: date
         });
     </script>
 @stop

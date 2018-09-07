@@ -15,13 +15,13 @@
     <link rel="stylesheet" href="{{url('assets/css/Dashboard.css')}}" />
     <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}" />
     <link rel="stylesheet" href="{{url('assets/css/media.css')}}"/>
-    <link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>
+    {{--<link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>--}}
     <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/text_editor.css')}}">
     <script src="{{url('assets/js/jquery-3.2.1.min.js')}}"></script>
     <script src="{{url('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{url('assets/js/Global.js')}}"></script>
-    <script src="{{url('js/my_validation.js')}}"></script>
+{{--    <script src="{{url('js/my_validation.js')}}"></script>--}}
     <script src="{{url('assets/js/text_editor.js')}}"></script>
     <script src="{{url('assets/js/Autocomplete.js')}}"></script>
 
@@ -602,7 +602,7 @@
                         </a>
                     </div>--}}
                     <div class="menu_popup_settingrow effect">
-                        <a href="{{url('logoutadmin')}}" class="menu_setting_row">
+                        <a href="{{url('lgt')}}" class="menu_setting_row">
                             <i class="mdi mdi-logout global_color"></i>
                             Logout
                         </a>
@@ -611,7 +611,7 @@
             </div>
         </div>
 
-        <div class="menu_basic_block glo_menuclick">
+        {{--<div class="menu_basic_block glo_menuclick">
             <span class="mdi mdi-earth"></span>
             <div class="total_count">5</div>
             <div class="menu_basic_popup effect scale0 notification_popbox">
@@ -732,7 +732,7 @@
                     <a href="#"> See All </a>
                 </div>
             </div>
-        </div>
+        </div>--}}
         {{--<div class="expand_block" onclick="toggleFullScreen(document.body)">
             <i class="mdi mdi-arrow-expand-all expand_on"></i>
             <i class="mdi mdi-arrow-collapse-all expand_off"></i>
@@ -741,7 +741,6 @@
 </nav>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header" id="myheader">
@@ -772,12 +771,10 @@
             <li style="display: none;"><a href="#"  data-toggle="tooltip" data-placement="left" title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>
             <li><a href="#" onclick="toggleFullScreen(document.body);" data-toggle="tooltip" data-placement="left" title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>
             <li><a href="#" onclick="settings();" data-toggle="tooltip" data-placement="left" title="Settings"><i class="mdi mdi-account-settings-variant"></i></a></li>
-            <li><a href="/admin" data-toggle="tooltip" data-placement="left" title="Dashboard"><i class="mdi mdi-speedometer"></i></a></li>
+            <li><a href="{{url('admin')}}" data-toggle="tooltip" data-placement="left" title="Dashboard"><i class="mdi mdi-speedometer"></i></a></li>
         </ul>
     </div>
 </div>
-
-
 
 
 <div class="modal fade" id="myModalsmall" role="dialog">
@@ -797,7 +794,7 @@
     </div>
 </div>
 
-
+<?php $loginUser = \App\LoginModel::find($_SESSION['admin_master']['id']); ?>
 <aside class="dash_sidemenu pcb">
     <div class="shift_iconbox abc" onclick="MenuShift(this);">
         <i class="mdi mdi-arrow-left-bold right_show"></i>
@@ -808,7 +805,8 @@
         <img src="{{url('assets/images/odfevicon.png')}}" class="small_aside_icon" />
     </div>
     <div class="dash_emp_details">
-        <img src="{{url('admin_pic/').'/'.$_SESSION['admin_master']['id'].'/'.$_SESSION['admin_master']['image']}}" class="dash_profile_img" />
+        <img src="{{url('admin_pic/').'/'.$loginUser->id.'/'.$loginUser->image}}"
+             class="dash_profile_img"/>
         <div class="dash_emp_basic">
             <span class="dash_name">{{ucfirst($_SESSION['admin_master']['username'])}}</span>
             <span class="dash_designation">Admin</span>
@@ -858,18 +856,18 @@
                 <span class="aside_menu_txt">Reviews</span>
             </a>
         </li>
-        <li class="right_menu_li">
-            <a href="{{url('/statelist')}}">
-                <i class="dash_arrow mdi mdi-earth global_color"></i>
-                <span class="aside_menu_txt">State</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/citylist')}}">
-                <i class="dash_arrow mdi mdi-map-marker global_color"></i>
-                <span class="aside_menu_txt">City</span>
-            </a>
-        </li>
+        {{--<li class="right_menu_li">--}}
+            {{--<a href="{{url('/statelist')}}">--}}
+                {{--<i class="dash_arrow mdi mdi-earth global_color"></i>--}}
+                {{--<span class="aside_menu_txt">State</span>--}}
+            {{--</a>--}}
+        {{--</li>--}}
+        {{--<li class="right_menu_li">--}}
+            {{--<a href="{{url('/citylist')}}">--}}
+                {{--<i class="dash_arrow mdi mdi-map-marker global_color"></i>--}}
+                {{--<span class="aside_menu_txt">City</span>--}}
+            {{--</a>--}}
+        {{--</li>--}}
         <li class="right_menu_li">
             <a href="{{url('/ask')}}">
                 <i class="dash_arrow mdi mdi-cellphone-android global_color"></i>
@@ -880,6 +878,20 @@
             <a href="{{url('/blog')}}">
                 <i class="dash_arrow mdi mdi-message-image global_color"></i>
                 <span class="aside_menu_txt">Blog</span>
+            </a>
+        </li>
+        <li class="right_menu_li">
+            {{--<a href="{{url('/testimonials')}}">--}}
+            <a href="{{url('testimonials')}}">
+                <i class="dash_arrow mdi mdi-format-size global_color"></i>
+                <span class="aside_menu_txt">Testimonials</span>
+            </a>
+        </li>
+        <li class="right_menu_li">
+            {{--<a href="{{url('/subscribe')}}">--}}
+            <a href="{{url('subscribe_list')}}">
+                <i class="dash_arrow mdi mdi-flag-checkered global_color"></i>
+                <span class="aside_menu_txt">Subscribes</span>
             </a>
         </li>
         {{--<li class="right_menu_li" onclick="MenuClick(this);">
@@ -945,6 +957,7 @@
     </ul>
 
 </aside>
+
 @yield('content')
 
 <div class="overlay_res" onclick="HideTranparent();"></div>
