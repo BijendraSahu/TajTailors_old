@@ -856,6 +856,12 @@
                 <span class="aside_menu_txt">Reviews</span>
             </a>
         </li>
+        <li class="right_menu_li">
+            <a href="{{url('stitches_list')}}">
+                <i class="dash_arrow mdi mdi-forum global_color"></i>
+                <span class="aside_menu_txt">Stitches Price</span>
+            </a>
+        </li>
         {{--<li class="right_menu_li">--}}
             {{--<a href="{{url('/statelist')}}">--}}
                 {{--<i class="dash_arrow mdi mdi-earth global_color"></i>--}}

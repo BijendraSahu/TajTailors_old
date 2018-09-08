@@ -94,6 +94,15 @@ Route::get('/activetest','TestimonialsController@activetest');
 Route::get('/deletetest','TestimonialsController@deletetest');
 Route::get('subscribe_list','SubscribeController@view');
 
+//////////////////////////////////////*********Stitches*************////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('stitches_list','StitchesController@stitches_list');
+Route::get('add_stitches','StitchesController@add_stitches');
+Route::get('update_stitches','StitchesController@update_stitches');
+Route::get('delete_stitches','StitchesController@delete_stitches');
+
+//////////////////////////////////////*********Stitches//////////////////////////////
+
 /*************API******************/
 Route::get('getCategory','APIController@getCategory');
 Route::get('getItem_bycid','APIController@get_item_by_cid');
@@ -177,6 +186,11 @@ Route::get('/delete_city', 'CityController@delete_city');
 Route::get('/settings/{id}', 'SettingController@settings');
 Route::get('/changepass', 'SettingController@changepass');
 Route::post('myadminpost', 'SettingController@myadminpost');
+
+
+
+
+
 //////////////////////////////////////*********delivery*************////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/delivery','DeliveryController@delivery');
@@ -191,6 +205,7 @@ Route::get('/blog','BlogController@blog');
 Route::get('/addblogcat','BlogController@addblogcat');
 Route::get('/blogpost','BlogController@blogpost');
 Route::post('/blogpic','BlogController@blogpic');
+Route::get('/updateblog/{id}','BlogController@updateblog');
 
 Route::GET('logoutadmin', function () {
     session_start();

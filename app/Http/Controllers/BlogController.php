@@ -16,7 +16,8 @@ class BlogController extends Controller
     public function blog()
     {
         $data = BlogCategory::get();
-        return view('adminview.blog', ['data' => $data]);
+        $blogdata = Blogmodel::where(['is_active' => '1'])->orderBy('id', 'desc')->paginate(5);
+        return view('adminview.blog', ['data' => $data, 'blogdata' => $blogdata]);
     }
 
     public function blogpic()
@@ -49,6 +50,7 @@ class BlogController extends Controller
 
     public function blogpost()
     {
+
         $data = new Blogmodel();
         $data->title = request('title');
         $data->description = request('description');
@@ -68,5 +70,44 @@ class BlogController extends Controller
         }
 
         return 'success';
+
+    }
+    public function upblogpost()
+    {
+        try{
+            $data = array(
+                'title' => request('title'),
+                'description' => request('description'),
+                'meta_title' => request('blog_meta_title'),
+                'meta_keyword' => request('blog_meta_keyword'),
+                'meta_description' => request('blog_meta_description'),
+
+            );
+            Blogmodel::where('id', request('udid'))
+                ->update($data);
+
+            Blogmodel::where('blog_id', request('udid'))
+                ->delete();
+            $mydata = request('mycatid');
+            for ($i = 0; $i < sizeof($mydata); $i++) {
+                $dcat_data = new BlogCategoryRecord();
+                $dcat_data->blog_id = request('udid');
+                $dcat_data->cat_id = $mydata[$i];
+                $dcat_data->save();
+            }
+
+            return 'success';
+        }catch(\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+
+
+    }
+    public function updateblog($id)
+    {
+        $blogdata=Blogmodel::where(['id'=>$id,'is_active'=>'1'])->first();
+        $data = BlogCategory::get();
+        return view('adminview.update_blog',['blogdata'=>$blogdata,'data'=>$data]);
     }
 }

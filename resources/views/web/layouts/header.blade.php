@@ -4,6 +4,13 @@
         font-weight: bold;
         padding-top: 58px;
     }
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 10%;
+        margin-top: -27%;
+    }
 </style>
 <nav class="main_menu fixed_menu" id="top_header_menu">
     <div class="container">

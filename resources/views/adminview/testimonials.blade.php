@@ -73,13 +73,13 @@
                 <section id="item_part1">
                     <section id="item_list">
                         <div class="col-sm-12 col-md-12 col-xs-12">
-                            <div class="dash_boxcontainner white_boxlist">
+                        <div class="dash_boxcontainner white_boxlist">
                                 <div class="upper_basic_heading"><span class="white_dash_head_txt">
                          Testimonials
                          <button onclick="openmyform();" class="btn btn-default pull-right"><i
                                      class="mdi mdi-plus"></i>Add</button>
                       </span>
-                                    <?php $mydata=\App\Testimonials::orderBy('id','desc')->get();?>
+                                    <?php $mydata=\App\Testimonial::orderBy('id','desc')->get();?>
                                     <p class="clearfix"></p>
                                     <table class="table table-striped">
                                         <thead>
@@ -96,7 +96,7 @@
                                         @foreach($mydata as $obj)
 
                                             <tr>
-                                                <td>{{$obj->user_id}}</td>
+                                                <td>{{$obj->user->name}}</td>
                                                 <input type="hidden" name="myuid" id="myuid{{$obj->user_id}}">
                                                 <td>{{$obj->review}}</td>
                                                 <td>

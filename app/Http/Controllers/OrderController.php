@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\OrderDetails;
 use App\OrderMaster;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +25,7 @@ class OrderController extends Controller
         $idd = request('IDD');
         $data = array(
             'status' => 'Ordered',
-            'updated_time' => date("d-m-Y")
+            'updated_time' => Carbon::now()
         );
         OrderMaster::where('id', request('IDD'))
             ->update($data);
@@ -36,7 +37,7 @@ class OrderController extends Controller
         $idd = request('IDD');
         $data = array(
             'status' => 'Packed',
-            'updated_time' => date("d-m-Y")
+            'updated_time' => Carbon::now()
         );
         OrderMaster::where('id', request('IDD'))
             ->update($data);
@@ -48,7 +49,7 @@ class OrderController extends Controller
         $idd = request('IDD');
         $data = array(
             'status' => 'Shipped',
-            'updated_time' => date("d-m-Y")
+            'updated_time' => Carbon::now()
         );
         OrderMaster::where('id', request('IDD'))
             ->update($data);
@@ -60,7 +61,7 @@ class OrderController extends Controller
         $idd = request('IDD');
         $data = array(
             'status' => 'Delivered',
-            'updated_time' => date("d-m-Y")
+            'updated_time' => Carbon::now()
         );
         OrderMaster::where('id', request('IDD'))
             ->update($data);

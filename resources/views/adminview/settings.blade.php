@@ -7,10 +7,7 @@
         <a class="nav-link" data-toggle="tab" onclick="second();" href="#aditya" role="tab"><i
                     class="fa fa-unlock-alt basicicon_margin"></i> Change Password</a>
     </li>--}}
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" onclick="third();" href="#adiya" role="tab"><i class="fa fa-users basicicon_margin"></i>
-            Role Manager</a>
-    </li>
+
 </ul>
 
 <div class="nav_containner" id="first" style="display: block;">
@@ -129,6 +126,9 @@
                     icon: "success",
                     button: "Ok",
                 });
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000);
 
 //
             },

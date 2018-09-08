@@ -105,10 +105,6 @@
         </div>
     </section>
 
-
-
-
-
     {{--////////////////////////////////////////////////*****Start Menu 2******//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--}}
     <script>
         function validate() {
@@ -243,7 +239,7 @@
                             data: "&ID= " + ID,
                             success: function (data) {
                                 abcddd(ID);
-                                $('#snackbar').html('')
+                                $('#snackbar').html('');
                                 $('#snackbar').html('Successfully Deleted');
                                 myFunction();
                                 $("#item_form").load(location.href + " #item_form");
