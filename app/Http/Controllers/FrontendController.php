@@ -257,10 +257,12 @@ class FrontendController extends Controller
     {
         $qry = '';
 //        echo json_encode(request('fabric_id'));
-        $fabric_id = join(', ',  request('fabric_id'));
+        $fabric_id = request('fabric_id') != '' ? join(', ', request('fabric_id')) : '';
 
+        $all = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id";
         $by_id = "SELECT i.* FROM item_master i, item_fabric ifb where ifb.item_master_id = i.id and ifb.fabric_id in ($fabric_id)";
-        $products_c = DB::select($by_id);
+        $sql = request('fabric_id') == '' ? $all : $by_id;
+        $products_c = DB::select($sql);
         $numrows = count($products_c);
         $rowsperpage = 8;
         $totalpages = ceil($numrows / $rowsperpage);
@@ -276,8 +278,12 @@ class FrontendController extends Controller
         }
 
         $offset = ($currentpage - 1) * $rowsperpage;
-        $by_id = "SELECT i.* FROM item_master i, item_fabric ifb where ifb.item_master_id = i.id and ifb.fabric_id in ($fabric_id) ORDER BY i.id DESC LIMIT $offset,$rowsperpage";
-        $items = DB::select($by_id);
+        $all1 = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id LIMIT $offset,$rowsperpage";
+        $by_id1 = "SELECT i.* FROM item_master i, item_fabric ifb where ifb.item_master_id = i.id and ifb.fabric_id in ($fabric_id) ORDER BY i.id DESC LIMIT $offset,$rowsperpage";
+
+
+        $sql_all = request('fabric_id') == '' ? $all1 : $by_id1;
+        $items = DB::select($sql_all);
         if ($numrows > 0) {
             return view('web.product_load')->with(['items' => $items, 'items_count' => $numrows]);
         } else {
@@ -374,9 +380,6 @@ class FrontendController extends Controller
         return 'Success';
     }
     /**************************Subscribe************************************/
-
-
-
 
 
     /**************************Cart************************************/
@@ -560,6 +563,7 @@ class FrontendController extends Controller
     {
         return view('web.book_appointment');
     }
+
     public function take_appointment()
     {
         $appointment = new Appointment();
@@ -573,6 +577,7 @@ class FrontendController extends Controller
         return 'success';
 //        return redirect('book_appointment')->with('message', 'Your appointment request has been saved we will get back to you soon');
     }
+
     /**************************Appointment************************************/
 
     public function notify()

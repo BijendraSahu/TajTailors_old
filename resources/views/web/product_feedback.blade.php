@@ -1,6 +1,6 @@
 @extends('web.layouts.e_master')
 
-@section('title', 'Organic Food : Product List')
+@section('title', 'Taj Tailors : Product List')
 
 @section('head')
     <script type="text/javascript">
@@ -19,6 +19,7 @@
                 }
             });
         }
+        $('#add_address_update').tooltip({'trigger':'focus', 'title': 'Password tooltip'});
     </script>
 @stop
 @section('content')

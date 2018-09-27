@@ -439,7 +439,7 @@
                                                             style="color: red;">*</span></label>
                                                 <br>
                                                 <div class="col-sm-1 form-group">
-                                                    <select class="form-control" name="unit[]" id="weight">
+                                                    <select class="form-control" name="size[]" id="weight">
                                                         <option value="30">30</option>
                                                         <option value="32">32</option>
                                                         <option value="34">34</option>
@@ -448,7 +448,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-1 form-group">
-                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                    <input type="text" class="form-control" name="size[]" value=""
                                                            placeholder="Qty" required/>
                                                 </div>
                                                 <div class="col-sm-1 form-group">
@@ -479,7 +479,7 @@
                                         <div class="col-sm-6 form-group">
 
                                             <input type="text" name="price" class="form-control"
-                                                   placeholder="Enter Price">
+                                                   placeholder="Enter Price" required>
                                         </div>
                                         <div class="col-sm-6 form-group">
                                             <input type="text" name="special_price" class="form-control"
@@ -527,10 +527,10 @@
 
         $(document).ready(function () {
             debugger;
-            var maxField = 4; //Input fields increment limitation
+            var maxField = 5; //Input fields increment limitation
             var addButton = $('.add_button'); //Add button selector
             var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML = '<div class="append_div"><div class="col-sm-1 form-group"><select class="form-control" name="unit[]" id="weight"><option value="30">30</option><option value="32">32</option><option value="34">34</option><option value="36">36</option><option value="38">38</option></select></div><div class="col-sm-1 form-group"><input type="text" class="form-control"name="unit[]" value="" placeholder="Qty"required/></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a><p class="clearfix"></p></div>'; //New input field html
+            var fieldHTML = '<div class="append_div"><div class="col-sm-1 form-group"><select class="form-control" name="size[]" id="weight"><option value="30">30</option><option value="32">32</option><option value="34">34</option><option value="36">36</option><option value="38">38</option></select></div><div class="col-sm-1 form-group"><input type="text" class="form-control" name="size[]" value="" placeholder="Qty"required/></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a><p class="clearfix"></p></div>'; //New input field html
             var x = 1; //Initial field counter is 1
             $(addButton).click(function () { //Once add button is clicked
                 if (x < maxField) { //Check maximum number of input fields

@@ -2460,9 +2460,10 @@
                     <div class="filter_box_container style-scroll">
                         <div class="filter_main_head">Product Category</div>
                         <ul class="product_list_ul style-scroll" id="filter_data">
-                            <li onclick="get_items(this);" class="selected" id="0">All Products</li>
+                            <li onclick="get_items(0);" class="selected" id="0">All Products</li>
                             @foreach($categories as $category)
-                                <li onclick="get_items(this);" id="{{$category->id}}">{{$category->name}}</li>
+                                <li onclick="get_items('{{$category->id}}')"
+                                    id="{{$category->id}}">{{$category->name}}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -2564,6 +2565,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="loader" id="loader">
+        <div class="internal_bg">
+            {{--            <img src="{{url('assets/images/logo_loader.png')}}" class="top_loader" />--}}
+        </div>
+        <img class="loader_main" src="{{url('assets/images/1L.gif')}}"/>
     </div>
     <script>
         var append_loading_img = '<div class="feed_loadimg_block" id="load_img">' + '<img height="50px" class="center-block" src="{{ url('images/loading.gif') }}"/></div>';
@@ -2712,7 +2719,7 @@
         get_items(0);
 
         function get_items(dis) {
-            var category_id = $(dis).attr('id');
+            var category_id = dis;
             var limit = 1;
             $('#see_id').val(1);
             $('#category_id').val(category_id);
@@ -2723,8 +2730,12 @@
                 data: {currentpage: limit, category_id: category_id},
                 beforeSend: function () {
                     $('#product_all').append(append_div);
+                    if (dis > 0) {
+                        $('#loader').css('display', 'block');
+                    }
                 },
                 success: function (data) {
+                    $('#loader').css('display', 'none');
                     if (data.no_record == 'no_record') {
                         $("#load_item").remove();
                         $("#product_all").html(no_record);
@@ -2760,8 +2771,10 @@
                 data: {currentpage: limit, fabric_id: fabric_id},
                 beforeSend: function () {
                     $('#product_all').append(append_div);
+                    $('#loader').css('display', 'block');
                 },
                 success: function (data) {
+                    $('#loader').css('display', 'none');
                     if (data.no_record == 'no_record') {
                         $("#load_item").remove();
                         $("#product_all").html(no_record);
@@ -2780,7 +2793,7 @@
 
         $(document).ready(function () {
             $(window).scroll(function (event) {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                if ($(window).scrollTop() + $(window).height()) {
                     if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
                         getmoreItems();
                     }
@@ -2800,8 +2813,10 @@
                 data: {currentpage: cp, category_id: category_id},
                 beforeSend: function () {
                     $('#product_all').append(append_div);
+                    $('#loader').css('display', 'block');
                 },
                 success: function (data) {
+                    $('#loader').css('display', 'none');
                     if (data.no_record == 'no_record') {
                         $("#load_item").remove();
                         $("#product_all").html(no_record);

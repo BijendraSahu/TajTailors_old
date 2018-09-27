@@ -164,6 +164,12 @@
                 }
             });
         }
+
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('#add_pincode_update').tooltip({'trigger':'focus', 'title': 'Pincode must have 6 digit'});
+        });
+
     </script>
 @stop
 @section('content')
@@ -379,12 +385,12 @@
                                 <div class="add_update_box" id="content_address_box">
                                     <div class="deli_row">
                                         <div class="col-sm-6">
-                                            <input type="text" placeholder="Name" name="name" id="add_name_update"
-                                                   class="form-control">
+                                            <input type="text" placeholder="Name*" name="name" id="add_name_update"
+                                                   class="form-control textWithSpace required" value="{{$_SESSION['user_master']->name}}">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" placeholder="Phone No." name="contact"
-                                                   id="add_contact_update" class="form-control">
+                                            <input type="text" placeholder="Phone No.*" name="contact"
+                                                   id="add_contact_update" minlength="10" maxlength="10" class="numberOnly form-control required"  value="{{$_SESSION['user_master']->contact}}">
                                         </div>
                                     </div>
                                     <div class="deli_row">
@@ -396,9 +402,9 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" placeholder="Pincode" name="pincode"
-                                                   id="add_pincode_update"
-                                                   class="form-control">
+                                            <input type="text" placeholder="Pincode*" name="pincode"
+                                                   id="add_pincode_update" minlength="6" maxlength="6"
+                                                   class="form-control numberOnly required">
                                         </div>
                                     </div>
                                     <div class="deli_row">

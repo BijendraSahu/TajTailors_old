@@ -69,6 +69,7 @@
             data: {cart_item_id: cart_item_id},
             success: function (data) {
                 $("#cartload").html(data);
+                $('.cart_popbox').removeClass('scale0');
             },
             error: function (xhr, status, error) {
                 $('#cartload').html(xhr.responseText);

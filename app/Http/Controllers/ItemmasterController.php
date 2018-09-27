@@ -136,9 +136,10 @@ class ItemmasterController extends Controller
             }
         }
 
-        $count = count(request('size')) / 1;
+        $count = count(request('size')) / 2;
         $item_unit = request('size');
         $u = 0;
+        $k = 1;
         /*$k = 1;
         $cp = 2;
         $p = 3;
@@ -149,6 +150,7 @@ class ItemmasterController extends Controller
             $price = new ItemSize();
             $price->item_master_id = $item->id;
             $price->size = $item_unit[$u];
+            $price->qty = $item_unit[$k];
            /* $price->weight = $item_unit[$k];
             $price->cost_price = $item_unit[$cp];
             $price->price = $item_unit[$p];
@@ -156,7 +158,8 @@ class ItemmasterController extends Controller
             $price->qty = $item_unit[$q];
             $price->product_id = $item_unit[$pr];*/
             $price->save();
-            $u = $u + 1;
+            $u = $k + 1;
+            $k = $k + 2;
 //            $k = $pr + 2;
 //            $cp = $pr + 3;
 //            $p = $pr + 4;

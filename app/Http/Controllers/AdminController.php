@@ -39,11 +39,15 @@ class AdminController extends Controller
 
     public function adminlogin()
     {
-        if (isset($_SESSION['admin_master'])) {
-            return redirect('/admin');
-        } else {
-            return view('adminview.adminlogin');
-        }
+        $_SESSION['admin_master'] = null;
+        $_SESSION['user_master'] = null;
+        return view('adminview.adminlogin');
+
+//        if (isset($_SESSION['admin_master'])) {
+//            return redirect('/admin');
+//        } else {
+//            return view('adminview.adminlogin');
+//        }
     }
 
     public function logincheck()
